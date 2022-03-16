@@ -3,6 +3,7 @@ const dateFormat = require("../utils/dateFormat");
 
 const reactionSchema = new Schema(
   {
+    // same format as comment.js for module 18.
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
@@ -10,7 +11,6 @@ const reactionSchema = new Schema(
     reactionBody: {
       type: String,
       required: true,
-      maxlength: 280,
     },
     username: {
       type: String,
@@ -29,5 +29,9 @@ const reactionSchema = new Schema(
     id: false,
   }
 );
+
+reactionSchema.virtual("reactionCount").get(function () {
+  return this.replies.length;
+});
 
 module.exports = reactionSchema;

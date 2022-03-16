@@ -2,13 +2,17 @@ const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 const reactionSchema = require("./Reaction");
 
-// thought schema
 const thoughtSchema = new Schema(
   {
     thoughtText: {
       type: String,
       required: true,
-      maxlength: 280,
+      trim: true,
+    },
+    createdBy: {
+      type: String,
+      required: true,
+      trim: true,
     },
     createdAt: {
       type: Date,
@@ -37,5 +41,4 @@ thoughtSchema.virtual("reactionCount").get(function () {
 
 const Thought = model("Thought", thoughtSchema);
 
-// export the User model
 module.exports = { Thought };
